@@ -588,12 +588,17 @@ aside .widget.Image .caption {margin-top: 10px; display: block; font-style: norm
 .PopularPosts .item-title a {color: var(--cp-ink);}
 .PopularPosts .item-title a:hover {color: var(--cp-red);}
 
-/* ------------- POSTINGAN HOME (card grid) ------------- */
-.blog-posts.hfeed{display:flex; flex-wrap:wrap; gap:26px;}
-.post-wrap.date-outer{width:100%;}
-.date-posts{display:flex; flex-wrap:wrap; gap:26px;}
+/* ------------- POSTINGAN HOME (card grid) -------------
+   Blogger opens a fresh .post-wrap > .date-posts pair for EVERY
+   single post here (not one shared wrapper for all posts), so the
+   grid has to live on .blog-posts and size .post-wrap — sizing
+   .post-outer or .date-posts instead leaves each card alone in its
+   own full-width row. */
+.blog-posts.hfeed{display:flex; flex-wrap:wrap; gap:26px; align-items:flex-start;}
+.post-wrap.date-outer{width: calc(50% - 13px);}
+.date-posts{width:100%;}
 .post-outer{
-	width: calc(50% - 13px);
+	width: 100%;
 	background: var(--cp-card);
 	border-radius: var(--cp-radius);
 	box-shadow: var(--cp-shadow);
@@ -873,7 +878,7 @@ RESPONSIVE MOBILE 1024px
 	.sidebar-wrap .widget.Image img {max-width: 100%}
 	.PopularPosts img {width: 250px; height: 250px;}
 	#search-box {width:220px;}
-	.post-outer{width:100%;}
+	.post-wrap.date-outer{width:100%;}
 }
 
 /*----------------------------------------------------
@@ -968,7 +973,7 @@ RESPONSIVE MOBILE 920px
 	.searchwrap {width: 270px; margin:0 auto}
 	#search-box { width: 240px; }
 	.sidebar-wrap {padding:0 20px}
-	.post-outer{width:100%;}
+	.post-wrap.date-outer{width:100%;}
 }
 
 /*----------------------------------------------------
