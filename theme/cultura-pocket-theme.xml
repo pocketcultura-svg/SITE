@@ -121,7 +121,8 @@ header {text-align:center; padding-top: 90px;}
 .Header .description {font-family: 'Poppins', sans-serif; font-size: 13px; color: var(--cp-muted); font-style: normal;}
 #Header1 #header-inner img {
 	margin: 10px auto;
-	max-width: 320px !important;
+	max-width: 480px !important;
+	width: 100%;
 	text-align: center;
 }
 /* ------------- TOP MENU ------------- */
