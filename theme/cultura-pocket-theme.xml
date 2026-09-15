@@ -81,15 +81,19 @@ a:link { text-decoration:none; color: var(--cp-ink); }
 a:visited { text-decoration:none; color: var(--cp-ink); }
 a:hover { text-decoration:none; color: var(--cp-red); }
 
-/* rainbow top strip, like the moodboard site */
+/* top strip: repeating solid color blocks (not a smooth gradient),
+   scrolls away with the page like the reference site's header bar */
 body:before{
 	content:"";
 	display:block;
-	height:6px;
+	height:8px;
 	width:100%;
-	position:fixed;
-	top:0; left:0; z-index:1001;
-	background:linear-gradient(90deg, var(--cp-red) 0 20%, var(--cp-blue) 20% 40%, var(--cp-green) 40% 60%, var(--cp-yellow) 60% 80%, var(--cp-pink) 80% 100%);
+	background-image: repeating-linear-gradient(90deg,
+		var(--cp-yellow) 0 8.33%,
+		var(--cp-red) 8.33% 16.66%,
+		var(--cp-blue) 16.66% 25%,
+		var(--cp-green) 25% 33.33%
+	);
 }
 
 .container {
@@ -110,7 +114,7 @@ body:before{
 h1,h2,h3,h4,h5,h6 {font-family: 'Baloo 2', 'Playfair Display', serif; font-weight: 600; }
 
 /* ------------- HEADER ------------- */
-header {text-align:center; padding-top: 90px;}
+header {text-align:center; padding-top: 30px;}
 .Header h1 {
 	font-size: 44px;
 	color: var(--cp-ink);
@@ -129,17 +133,16 @@ header {text-align:center; padding-top: 90px;}
 body .navbar {display: none;}
 #topmenuwrap {
 	width: 100%;
-	padding: 0;
+	padding: 14px 0;
 	margin: 0 auto;
 	text-transform: uppercase;
 	text-align: center;
 	letter-spacing:1px;
 	z-index: 10;
-	position: fixed;
-	top:6px;
+	position: relative;
 	font-family: 'Poppins', sans-serif;
 	background: #FFFFFF;
-	box-shadow:0 2px 14px rgba(34,30,27,0.06);
+	border-bottom: 1px solid var(--cp-line);
 }
 .topwrap {
 	width: 1140px;
@@ -481,7 +484,9 @@ aside .widget h2:before { display:none; }
 #ArchiveList a.post-count-link  {display: inline}
 .BlogArchive #ArchiveList ul ul li {padding:10px 0 0}
 
-aside .Label ul {display:flex; flex-wrap:wrap; gap:8px; justify-content:center;}
+/* categoria chips: each one cycles through the brand palette,
+   like the reference site's row of colorful category badges */
+aside .Label ul {display:flex; flex-wrap:wrap; gap:10px; justify-content:center;}
 aside .Label ul li {
     padding: 0; margin: 0;
 	font-family: 'Poppins', sans-serif;
@@ -489,13 +494,18 @@ aside .Label ul li {
 }
 aside .Label ul li a{
 	display:inline-block;
-	padding:6px 14px;
+	padding:8px 16px;
 	border-radius:999px;
-	background: #FFF3D6;
+	background: var(--cp-yellow);
 	color: var(--cp-ink);
-	font-weight:600;
+	font-weight:700;
+	transition:.2s;
 }
-aside .Label ul li a:hover{background: var(--cp-yellow);}
+aside .Label ul li:nth-child(4n+1) a{background: var(--cp-yellow);}
+aside .Label ul li:nth-child(4n+2) a{background: var(--cp-pink); color:#fff;}
+aside .Label ul li:nth-child(4n+3) a{background: var(--cp-blue); color:#fff;}
+aside .Label ul li:nth-child(4n+4) a{background: var(--cp-green); color:#fff;}
+aside .Label ul li a:hover{transform:translateY(-2px); filter:brightness(0.95);}
 
 input.gsc-input {
 	background-color: #F6F1E7 !important;
@@ -589,14 +599,10 @@ aside .widget.Image .caption {margin-top: 10px; display: block; font-style: norm
 .PopularPosts .item-title a {color: var(--cp-ink);}
 .PopularPosts .item-title a:hover {color: var(--cp-red);}
 
-/* ------------- POSTINGAN HOME (card grid) -------------
-   Blogger opens a fresh .post-wrap > .date-posts pair for EVERY
-   single post here (not one shared wrapper for all posts), so the
-   grid has to live on .blog-posts and size .post-wrap — sizing
-   .post-outer or .date-posts instead leaves each card alone in its
-   own full-width row. */
-.blog-posts.hfeed{display:flex; flex-wrap:wrap; gap:26px; align-items:flex-start;}
-.post-wrap.date-outer{width: calc(50% - 13px);}
+/* ------------- POSTINGAN HOME (single wide column, like the
+   reference site's "latest post" blocks — not a card grid) ------------- */
+.blog-posts.hfeed{display:block;}
+.post-wrap.date-outer{width:100%; margin-bottom:34px;}
 .date-posts{width:100%;}
 .post-outer{
 	width: 100%;
@@ -606,12 +612,12 @@ aside .widget.Image .caption {margin-top: 10px; display: block; font-style: norm
 	overflow:hidden;
 	transition:.2s;
 }
-.post-outer:hover{transform:translateY(-4px);}
+.post-outer:hover{transform:translateY(-2px);}
 .post {margin-bottom: 0; line-height: 1.8em;}
 .post-body .posts-thumb {}
 .post-thumbb {display: block; margin:0 0 14px; padding:0}
 .post-thumbb a {text-align: center; display: block; border-radius:0; overflow:hidden;}
-.post-thumbb img{width:100%; height:210px; object-fit:cover;}
+.post-thumbb img{width:100%; height:340px; object-fit:cover;}
 .post-header {
 	text-align: left;
 	padding: 18px 20px 0;
@@ -2748,7 +2754,11 @@ $(document).ready(function(){
   <b:widget id='HTML1' locked='false' title='Quem Somos' type='HTML'>
     <b:widget-settings>
       <b:widget-setting name='content'><![CDATA[<div style="text-align:center;">
-<img src="https://imgur.com/WZNkIRK.png" style="width: 150px; border-radius: 50%; margin: 0 auto 12px;" />
+<div class="avatarblocks">
+  <span></span><span></span><span></span>
+  <span></span><img src="https://imgur.com/WZNkIRK.png" class="avatarimg" /><span></span>
+  <span></span><span></span><span></span>
+</div>
 <div class="textoperfil">
 📖 Bem-vindo ao Pocketcultura!<br />
 Resenhas sinceras de livros, filmes, séries e animes. 7 amigos apaixonados por cultura pop.<br />
@@ -2762,6 +2772,31 @@ Resenhas sinceras de livros, filmes, séries e animes. 7 amigos apaixonados por 
 </div>
 </div>
 <style type="text/css">
+.avatarblocks{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  grid-template-rows:repeat(3,1fr);
+  width:130px;
+  height:130px;
+  margin:0 auto 12px;
+  border-radius:20px;
+  overflow:hidden;
+}
+.avatarblocks span:nth-child(1){background:#FF5A5F;}
+.avatarblocks span:nth-child(2){background:#F7CB4D;}
+.avatarblocks span:nth-child(3){background:#4DA9F7;}
+.avatarblocks span:nth-child(4){background:#3FC28A;}
+.avatarblocks span:nth-child(6){background:#FF7A9C;}
+.avatarblocks span:nth-child(7){background:#4DA9F7;}
+.avatarblocks span:nth-child(8){background:#F7CB4D;}
+.avatarblocks span:nth-child(9){background:#FF5A5F;}
+.avatarimg{
+  grid-column:2; grid-row:2;
+  width:100%; height:100%;
+  object-fit:cover;
+  border-radius:50%;
+  border:4px solid #fff;
+}
 .social {
   display: flex;
   flex-wrap: wrap;
